@@ -35,10 +35,41 @@ public class LoincRequests {
 		return new LoincCodeSearchRequestBuilder();
 	}
 
-	// TODO: Add additional request builders when needed:
-	// public static LoincCodeGetRequestBuilder prepareGetLoincCode(String loincNum)
-	// public static LoincCodeCreateRequestBuilder prepareCreateLoincCode()
-	// public static LoincCodeUpdateRequestBuilder prepareUpdateLoincCode(String loincNum)
-	// public static LoincPartSearchRequestBuilder prepareSearchLoincPart()
-	// public static LoincAnswerListSearchRequestBuilder prepareSearchLoincAnswerList()
+	/**
+	 * Returns a request for creating a new LOINC code.
+	 *
+	 * @return a create request for LOINC codes
+	 */
+	public static LoincCodeCreateRequest prepareCreateLoincCode() {
+		return new LoincCodeCreateRequest();
+	}
+
+	/**
+	 * Returns a request for updating an existing LOINC code.
+	 *
+	 * @param loincNum the LOINC number to update
+	 * @return an update request for the specified LOINC code
+	 */
+	public static LoincCodeUpdateRequest prepareUpdateLoincCode(String loincNum) {
+		return new LoincCodeUpdateRequest(loincNum);
+	}
+
+	/**
+	 * Returns a request for deleting a LOINC code.
+	 *
+	 * @param loincNum the LOINC number to delete
+	 * @return a delete request for the specified LOINC code
+	 */
+	public static LoincCodeDeleteRequest prepareDeleteLoincCode(String loincNum) {
+		return new LoincCodeDeleteRequest(loincNum);
+	}
+
+	/**
+	 * Returns a builder for searching LOINC parts.
+	 *
+	 * @return a search request builder for LOINC parts
+	 */
+	public static LoincPartSearchRequestBuilder prepareSearchLoincPart() {
+		return new LoincPartSearchRequestBuilder();
+	}
 }
