@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Snow Owl LOINC REST Services
+Bundle-SymbolicName: com.b2international.snowowl.loinc.core.rest;singleton:=true
+Bundle-Version: 9.8.1.qualifier
+Bundle-Vendor: B2i Healthcare
+Fragment-Host: com.b2international.snowowl.core.rest
+Automatic-Module-Name: com.b2international.snowowl.rest.loinc
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Require-Bundle: com.b2international.snowowl.loinc.datastore
