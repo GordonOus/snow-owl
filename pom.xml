@@ -46,6 +46,7 @@
 		<module>netty</module>
 		<module>core</module>
 		<module>snomed</module>
+		<module>loinc</module>
 		<module>cis</module>
 		<module>fhir</module>
 		<module>tests</module>
