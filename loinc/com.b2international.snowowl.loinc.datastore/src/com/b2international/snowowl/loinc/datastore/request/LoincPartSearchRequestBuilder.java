@@ -18,7 +18,8 @@ package com.b2international.snowowl.loinc.datastore.request;
 import java.util.Collection;
 
 import com.b2international.snowowl.core.domain.BranchContext;
-import com.b2international.snowowl.core.request.RevisionIndexRequestBuilder;
+import com.b2international.snowowl.core.request.SearchResourceRequest;
+import com.b2international.snowowl.core.request.SearchResourceRequestBuilder;
 import com.b2international.snowowl.core.request.SystemRequestBuilder;
 import com.b2international.snowowl.loinc.core.domain.LoincParts;
 
@@ -28,7 +29,7 @@ import com.b2international.snowowl.loinc.core.domain.LoincParts;
  * @since 9.9
  */
 public final class LoincPartSearchRequestBuilder
-		extends RevisionIndexRequestBuilder<LoincPartSearchRequestBuilder, BranchContext, LoincParts>
+		extends SearchResourceRequestBuilder<LoincPartSearchRequestBuilder, BranchContext, LoincParts>
 		implements SystemRequestBuilder<LoincParts> {
 
 	LoincPartSearchRequestBuilder() {

@@ -22,6 +22,7 @@ import java.util.List;
 import com.b2international.index.query.Expression;
 import com.b2international.index.query.Expressions;
 import com.b2international.index.query.Expressions.ExpressionBuilder;
+import com.b2international.index.revision.RevisionSearcher;
 import com.b2international.snowowl.core.domain.BranchContext;
 import com.b2international.snowowl.loinc.datastore.index.entry.LoincCodeDocument;
 
@@ -51,7 +52,7 @@ public class LoincRelationshipQueries {
 			return Expressions.matchNone();
 		}
 
-		return Expressions.builder()
+		return Expressions.bool()
 			.filter(LoincCodeDocument.Expressions.component(referenceCode.getComponent()))
 			.filter(LoincCodeDocument.Expressions.system(referenceCode.getSystem()))
 			.mustNot(LoincCodeDocument.Expressions.loincNum(loincNum)) // Exclude the reference code itself
@@ -77,7 +78,7 @@ public class LoincRelationshipQueries {
 	 * @return an expression matching quantitative tests in the class
 	 */
 	public static Expression findQuantitativeTestsByClass(String classType) {
-		return Expressions.builder()
+		return Expressions.bool()
 			.filter(LoincCodeDocument.Expressions.classType(classType))
 			.filter(LoincCodeDocument.Expressions.scaleTyp("Qn"))
 			.build();
@@ -122,7 +123,7 @@ public class LoincRelationshipQueries {
 			String scaleTyp,
 			String methodTyp) {
 
-		ExpressionBuilder builder = Expressions.builder();
+		ExpressionBuilder builder = Expressions.bool();
 
 		if (component != null) {
 			builder.filter(LoincCodeDocument.Expressions.component(component));
@@ -154,7 +155,7 @@ public class LoincRelationshipQueries {
 	 * @return an expression matching deprecated codes
 	 */
 	public static Expression findDeprecatedCodes() {
-		return Expressions.builder()
+		return Expressions.bool()
 			.filter(LoincCodeDocument.Expressions.status("DEPRECATED"))
 			.build();
 	}
@@ -176,7 +177,7 @@ public class LoincRelationshipQueries {
 	 * @return an expression matching codes with answer lists
 	 */
 	public static Expression findCodesWithAnswerLists() {
-		return Expressions.builder()
+		return Expressions.bool()
 			.must(Expressions.exists("answerListId"))
 			.build();
 	}
@@ -196,7 +197,7 @@ public class LoincRelationshipQueries {
 			List<String> scaleTypes,
 			List<String> components) {
 
-		ExpressionBuilder builder = Expressions.builder();
+		ExpressionBuilder builder = Expressions.bool();
 
 		if (activeOnly) {
 			builder.filter(LoincCodeDocument.Expressions.active(true));

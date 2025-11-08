@@ -23,8 +23,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import com.b2international.index.Analyzers;
 import com.b2international.index.Doc;
-import com.b2international.index.Text;
+import com.b2international.index.mapping.Field;
+import com.b2international.index.mapping.FieldAlias;
+import com.b2international.index.mapping.FieldAlias.FieldAliasType;
 import com.b2international.index.query.Expression;
 import com.b2international.snowowl.loinc.core.domain.LoincCode;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -56,6 +59,36 @@ public final class LoincCodeDocument extends LoincDocument {
 
 	public static Builder builder() {
 		return new Builder();
+	}
+
+	public static Builder builder(final LoincCodeDocument input) {
+		return builder()
+				.id(input.getId())
+				.iconId(input.getIconId())
+				.status(input.getStatus())
+				.released(input.isReleased())
+				.active(input.isActive())
+				.effectiveTime(input.getEffectiveTime())
+				.loincNum(input.getLoincNum())
+				.component(input.getComponent())
+				.property(input.getProperty())
+				.timeAspct(input.getTimeAspct())
+				.system(input.getSystem())
+				.scaleTyp(input.getScaleTyp())
+				.methodTyp(input.getMethodTyp())
+				.classType(input.getClassType())
+				.longCommonName(input.getLongCommonName())
+				.shortName(input.getShortName())
+				.displayName(input.getDisplayName())
+				.consumerName(input.getConsumerName())
+				.orderObs(input.getOrderObs())
+				.relatedNames(input.getRelatedNames())
+				.versionFirstReleased(input.getVersionFirstReleased())
+				.versionLastChanged(input.getVersionLastChanged())
+				.changeType(input.getChangeType())
+				.exampleUnits(input.getExampleUnits())
+				.exampleUcumUnits(input.getExampleUcumUnits())
+				.answerListId(input.getAnswerListId());
 	}
 
 	public static class Fields extends LoincDocument.Fields {
@@ -93,6 +126,10 @@ public final class LoincCodeDocument extends LoincDocument {
 
 		public static Expression property(String property) {
 			return exactMatch(Fields.PROPERTY, property);
+		}
+
+		public static Expression system(String system) {
+			return exactMatch(Fields.SYSTEM, system);
 		}
 
 		public static Expression scaleTyp(String scaleTyp) {
@@ -312,7 +349,9 @@ public final class LoincCodeDocument extends LoincDocument {
 	private final String exampleUcumUnits;
 	private final String answerListId;
 
-	@Text(analyzer = "standard")
+	@Field(aliases = {
+		@FieldAlias(name = "text", type = FieldAliasType.TEXT, analyzer = Analyzers.TOKENIZED)
+	})
 	@JsonIgnore
 	private final String searchText;
 

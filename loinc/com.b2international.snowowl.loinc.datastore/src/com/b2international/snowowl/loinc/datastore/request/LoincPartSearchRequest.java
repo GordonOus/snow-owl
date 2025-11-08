@@ -38,6 +38,11 @@ public final class LoincPartSearchRequest extends SearchIndexResourceRequest<Bra
 
 	public enum OptionKey {
 		/**
+		 * Filter by active status
+		 */
+		ACTIVE,
+
+		/**
 		 * Filter by part number(s)
 		 */
 		PART_NUMBER,
@@ -63,7 +68,7 @@ public final class LoincPartSearchRequest extends SearchIndexResourceRequest<Bra
 
 	@Override
 	protected Expression prepareQuery(BranchContext context) {
-		final ExpressionBuilder queryBuilder = Expressions.builder();
+		final ExpressionBuilder queryBuilder = Expressions.bool();
 
 		addIdFilter(queryBuilder, ids -> LoincPartDocument.Expressions.partNumbers(ids));
 		addActiveFilter(queryBuilder);
@@ -75,8 +80,8 @@ public final class LoincPartSearchRequest extends SearchIndexResourceRequest<Bra
 	}
 
 	private void addActiveFilter(ExpressionBuilder queryBuilder) {
-		if (containsKey(SearchResourceRequest.OptionKey.ACTIVE)) {
-			boolean active = getBoolean(SearchResourceRequest.OptionKey.ACTIVE);
+		if (containsKey(OptionKey.ACTIVE)) {
+			boolean active = getBoolean(OptionKey.ACTIVE);
 			queryBuilder.filter(LoincPartDocument.Expressions.active(active));
 		}
 	}

@@ -42,6 +42,16 @@ public final class LoincCodeSearchRequest extends SearchIndexResourceRequest<Bra
 	 */
 	public enum OptionKey {
 		/**
+		 * Filter by active status
+		 */
+		ACTIVE,
+
+		/**
+		 * Filter by released status
+		 */
+		RELEASED,
+
+		/**
 		 * Filter by LOINC number(s)
 		 */
 		LOINC_NUM,
@@ -92,7 +102,7 @@ public final class LoincCodeSearchRequest extends SearchIndexResourceRequest<Bra
 
 	@Override
 	protected Expression prepareQuery(BranchContext context) {
-		final ExpressionBuilder queryBuilder = Expressions.builder();
+		final ExpressionBuilder queryBuilder = Expressions.bool();
 
 		// Add common filters
 		addIdFilter(queryBuilder, ids -> LoincCodeDocument.Expressions.loincNums(ids));
@@ -113,15 +123,15 @@ public final class LoincCodeSearchRequest extends SearchIndexResourceRequest<Bra
 	}
 
 	private void addActiveFilter(ExpressionBuilder queryBuilder) {
-		if (containsKey(SearchResourceRequest.OptionKey.ACTIVE)) {
-			boolean active = getBoolean(SearchResourceRequest.OptionKey.ACTIVE);
+		if (containsKey(OptionKey.ACTIVE)) {
+			boolean active = getBoolean(OptionKey.ACTIVE);
 			queryBuilder.filter(LoincCodeDocument.Expressions.active(active));
 		}
 	}
 
 	private void addReleasedFilter(ExpressionBuilder queryBuilder) {
-		if (containsKey(SearchResourceRequest.OptionKey.RELEASED)) {
-			boolean released = getBoolean(SearchResourceRequest.OptionKey.RELEASED);
+		if (containsKey(OptionKey.RELEASED)) {
+			boolean released = getBoolean(OptionKey.RELEASED);
 			queryBuilder.filter(LoincCodeDocument.Expressions.released(released));
 		}
 	}
