@@ -22,6 +22,10 @@
 
 		<!-- LOINC Test modules -->
 		<module>com.b2international.snowowl.loinc.datastore.tests</module>
+
+		<!-- LOINC Feature modules -->
+		<module>com.b2international.snowowl.loinc.core.feature</module>
+		<module>com.b2international.snowowl.loinc.core.rest.feature</module>
 	</modules>
 
 </project>
